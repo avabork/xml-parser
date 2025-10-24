@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors';
+
 import connectDB from './config/db.js';
 import reportRoutes from './routes/report.routes.js';
 
@@ -13,7 +13,18 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+// ...other imports
+import cors from 'cors';
+
+// --- UPDATE CORS ---
+// We will set the allowed origin from an environment variable
+const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000';
+app.use(cors({
+  origin: frontendURL
+}));
+// --- END OF UPDATE ---
+
+// ...rest of the file
 app.use(express.json()); // To accept JSON data
 
 // API Routes
