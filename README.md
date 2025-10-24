@@ -3,7 +3,7 @@
 A full-stack MERN (MongoDB, Express, React, Node.js) application built to upload, parse, and analyze any XML file.
 
 This application features a smart parser that:
-1.  [cite_start]**Analyzes Credit Reports:** Specifically identifies and extracts detailed data from Experian credit report XMLs [cite: 14-35], displaying a full financial summary.
+1.  **Analyzes Credit Reports:** Specifically identifies and extracts detailed data from Experian credit report XMLs [cite: 14-35], displaying a full financial summary.
 2.  **Handles Generic XML:** Gracefully parses *any other* valid XML file (e.g., book catalogs, employee lists) and displays the raw JSON structure, preventing errors.
 
 ## Features
