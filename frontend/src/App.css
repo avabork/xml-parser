@@ -1,0 +1,258 @@
+:root {
+  --primary-color: #435B96;    /* Deep Indigo */
+  --secondary-color: #16A085;  /* Vibrant Teal/Green */
+  --light-gray: #f8f9fa;       /* Softer Background */
+  --text-dark: #34495E;        /* Slate Gray Text */
+  --text-light: #7f8c8d;       /* Lighter Gray Text */
+  --card-bg: #fcfcfc;          /* UPDATED: Subtle Card BG */
+  --border-color: #e9ecef;     /* UPDATED: Lighter Border */
+  --shadow: 0 4px 12px rgba(67, 91, 150, 0.06); /* UPDATED: Softer Shadow */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--light-gray);
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* UPDATED: Added more padding per suggestion */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem; /* UPDATED */
+  width: 100%;
+  flex: 1;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4 {
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; color: var(--secondary-color); }
+
+/* UPDATED: Base h4 style */
+h4 {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  display: flex; /* ADDED: For icon alignment */
+  align-items: center; /* ADDED: For icon alignment */
+}
+
+p { margin-top: 0; margin-bottom: 1rem; }
+
+/* UPDATED: Homepage header per spacing feedback */
+.homepage-header {
+  font-size: 1.75rem;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-top: 1.5rem; /* REDUCED */
+  margin-bottom: 1.5rem;
+}
+
+/* UPDATED: Card style per suggestion */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+/* --- Report Item Styling --- */
+.report-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; /* ADDED: Hover */
+}
+
+/* ADDED: Hover animation */
+.report-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(67, 91, 150, 0.08);
+}
+
+/* UPDATED: Report header per suggestion */
+.report-item-header {
+  background: linear-gradient(90deg, #f4f7ff, #f8fffb);
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+/* UPDATED: Report title per suggestion */
+.report-item-header h3 { 
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 5px; 
+}
+.report-item-header em { color: var(--text-light); font-size: 0.9em; }
+
+.report-content { padding: 25px; }
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.report-section { padding: 0; }
+.report-section p {
+  margin: 8px 0;
+  font-size: 0.95em;
+  display: flex;
+  justify-content: space-between;
+}
+/* UPDATED: Strong tag color per suggestion */
+.report-section p strong { 
+  color: var(--primary-color);
+  font-weight: 600; 
+}
+.report-section p span { text-align: right; color: var(--text-light); }
+
+/* UPDATED: Credit Score Badge per suggestion */
+.credit-score {
+  background: #eafaf1;
+  color: #16A085;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 1rem !important; /* Overriding base */
+  font-weight: 600;
+}
+
+/* ADDED: Icons for report sections */
+h4.section-icon-user::before,
+h4.section-icon-summary::before,
+h4.section-icon-card::before,
+h4.section-icon-address::before,
+h4.section-icon-generic::before {
+  content: "";
+  font-size: 1.2rem;
+  margin-right: 10px;
+  color: var(--secondary-color);
+}
+h4.section-icon-user::before    { content: "🧍"; }
+h4.section-icon-summary::before { content: "📊"; }
+h4.section-icon-card::before    { content: "💳"; }
+h4.section-icon-address::before { content: "🏠"; }
+h4.section-icon-generic::before { content: "📄"; }
+
+
+/* --- Table Styling --- */
+.report-table-section { margin-top: 25px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border-color); }
+th { background-color: #f9f9f9; font-weight: 600; color: var(--text-dark); }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background-color: #fdfdfd; }
+
+/* --- Utility Styles --- */
+.loading, .empty-state {
+  text-align: center;
+  font-size: 1.1em;
+  color: var(--text-light);
+  padding: 40px;
+}
+.empty-state {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  border: 1px dashed var(--border-color);
+}
+.message.error {
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+/* --- Delete Button --- */
+.delete-button {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #999;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+.delete-button:hover {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+/* --- Generic JSON Viewer --- */
+.generic-json-view {
+  background-color: #f6f8fa;
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  border-radius: 5px;
+  max-height: 400px;
+  overflow-y: auto;
+  font-size: 0.8em;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* ADDED: Responsive block per suggestion */
+@media (max-width: 768px) {
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage-header {
+    font-size: 1.4rem;
+  }
+
+  /* Target the main upload button */
+  .upload-button {
+    font-size: 0.95rem;
+  }
+}

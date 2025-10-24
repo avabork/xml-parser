@@ -1,0 +1,31 @@
+
+.history-page-container {
+  width: 100%;
+}
+
+.history-header h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  border: none;
+  margin: 0;
+}
+.history-header p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.report-list h3 {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  margin-top: 30px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  font-size: 1.1em;
+  color: var(--text-light);
+  padding: 40px;
+}
