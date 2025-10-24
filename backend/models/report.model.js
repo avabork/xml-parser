@@ -18,6 +18,8 @@ const addressSchema = new mongoose.Schema({
 const reportSchema = new mongoose.Schema(
   {
     fileName: String,
+
+    // --- Specific Experian Fields (OPTIONAL) ---
     basicDetails: {
       name: String,
       mobile: String,
@@ -33,10 +35,15 @@ const reportSchema = new mongoose.Schema(
       unsecuredAccountsAmount: Number,
       sevenDayEnquiries: Number,
     },
-    // We filter for credit cards as requested [cite: 30]
     creditCards: [creditAccountSchema],
-    // Store all unique addresses found in the report [cite: 32]
     addresses: [addressSchema],
+
+    // --- Generic Field for OTHER XML types ---
+    // This will store the raw JSON if it's not a credit report
+    genericData: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
   },
   {
     timestamps: true,

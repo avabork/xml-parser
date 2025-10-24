@@ -1,16 +1,15 @@
 import express from 'express';
 import multer from 'multer';
-import { uploadReport, getReports } from '../controllers/report.controller.js';
+import { uploadReport, getReports, deleteReport } from '../controllers/report.controller.js'; // Import deleteReport
 
 const router = express.Router();
 
 // Setup multer for file upload
-// We use memoryStorage to hold the file in a buffer
 const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    // Validate file format [cite: 11]
+    // Validate file format
     if (file.mimetype === 'text/xml' || file.mimetype === 'application/xml') {
       cb(null, true);
     } else {
@@ -24,5 +23,8 @@ router.post('/upload', upload.single('file'), uploadReport);
 
 // GET /api/reports
 router.get('/', getReports);
+
+// DELETE /api/reports/:id
+router.delete('/:id', deleteReport); // <-- ADD THIS NEW ROUTE
 
 export default router;

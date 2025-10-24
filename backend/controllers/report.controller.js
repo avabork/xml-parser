@@ -15,22 +15,32 @@ export const uploadReport = async (req, res) => {
     // Convert buffer to string
     const xmlString = req.file.buffer.toString('utf-8');
 
-    // Parse the XML string [cite: 14]
-    const extractedData = await parseCreditReportXML(xmlString);
+    // Parse the XML string
+    const parsedData = await parseCreditReportXML(xmlString);
 
-    // Add filename to the data
-    extractedData.fileName = req.file.originalname;
+    let reportToSave;
 
-    // Save to MongoDB 
-    const report = new Report(extractedData);
-    await report.save();
+    // Check if the parser marked this as a generic file
+    if (parsedData.isGeneric) {
+      reportToSave = new Report({
+        fileName: req.file.originalname,
+        genericData: parsedData.genericData,
+      });
+    } else {
+      // This is an Experian file, save all extracted data
+      parsedData.fileName = req.file.originalname;
+      reportToSave = new Report(parsedData);
+    }
+
+    // Save to MongoDB
+    const savedReport = await reportToSave.save();
 
     res.status(201).json({
       message: 'File processed and report saved successfully.',
-      data: report,
+      data: savedReport,
     });
   } catch (error) {
-    // Handle parsing or validation errors [cite: 46]
+    // Handle parsing or validation errors
     console.error('Upload Error:', error);
     res.status(500).json({ message: 'Error processing file.', error: error.message });
   }
@@ -48,5 +58,28 @@ export const getReports = async (req, res) => {
   } catch (error) {
     console.error('Get Reports Error:', error);
     res.status(500).json({ message: 'Error fetching reports.', error: error.message });
+  }
+};
+
+/**
+ * @desc    Delete a report by ID
+ * @route   DELETE /api/reports/:id
+ * @access  Public
+ */
+export const deleteReport = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const report = await Report.findById(id);
+
+    if (!report) {
+      return res.status(404).json({ message: 'Report not found' });
+    }
+
+    await report.deleteOne(); // Use deleteOne() on the document
+
+    res.status(200).json({ message: 'Report deleted successfully' });
+  } catch (error) {
+    console.error('Delete Report Error:', error);
+    res.status(500).json({ message: 'Error deleting report', error: error.message });
   }
 };
